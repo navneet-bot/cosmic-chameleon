@@ -69,6 +69,34 @@ const AnimatedSection: React.FC<{
   );
 };
 
+// Product data - hardcoded products
+const PRODUCTS = [
+  {
+    _id: 'product-1',
+    name: 'CRM Dashboard',
+    description: 'Comprehensive customer relationship management platform with real-time analytics and automated workflows.',
+    image: 'https://static.wixstatic.com/media/12d367_4f26ccd17f8f4e3a8958306ea08c2332~mv2.png',
+    ctaLabel: 'Get Started',
+    ctaLink: '#'
+  },
+  {
+    _id: 'product-2',
+    name: 'AI Calling Agent',
+    description: 'Intelligent voice assistant powered by advanced AI for seamless customer interactions and support.',
+    image: 'https://static.wixstatic.com/media/12d367_4f26ccd17f8f4e3a8958306ea08c2332~mv2.png',
+    ctaLabel: 'Get Started',
+    ctaLink: '#'
+  },
+  {
+    _id: 'product-3',
+    name: 'Billing & Invoicing Software',
+    description: 'Streamlined billing solution with automated invoicing, payment tracking, and financial reporting.',
+    image: 'https://static.wixstatic.com/media/46b2f1_aad4ffcf7a0d4eb99c27773abda3c5fb~mv2.png?originWidth=384&originHeight=256',
+    ctaLabel: 'Get Started',
+    ctaLink: '#'
+  }
+];
+
 export default function HomePage() {
   const [services, setServices] = useState<Services[]>([]);
   const [approach, setApproach] = useState<OurApproach[]>([]);
@@ -159,6 +187,12 @@ export default function HomePage() {
               className="text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-sm"
             >
               Services
+            </button>
+            <button 
+              onClick={() => scrollToSection('products')}
+              className="text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-sm"
+            >
+              Products
             </button>
             <button 
               onClick={() => scrollToSection('approach')}
@@ -326,6 +360,67 @@ export default function HomePage() {
                         className="inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-[#1E1E1E]"
                       >
                         {service.ctaLabel}
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </a>
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </AnimatedSection>
+
+      {/* Products Section - Card Grid (Same layout as Services) */}
+      <AnimatedSection id="products" className="w-full max-w-[1200px] mx-auto px-4 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-heading text-foreground mb-6">
+            Our Products
+          </h2>
+          <p className="text-xl font-paragraph text-foreground/80 max-w-3xl mx-auto">
+            Powerful tools and solutions built to streamline your business operations 
+            and drive growth in the digital world.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {PRODUCTS.map((product, index) => (
+            <motion.div
+              key={product._id}
+              custom={index}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <Card className="bg-[#1E1E1E] border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full group">
+                <CardContent className="p-6">
+                  {product.image && (
+                    <div className="mb-6 overflow-hidden rounded-lg">
+                      <Image 
+                        src={product.image}
+                        alt={`${product.name} - Business software solution`}
+                        width={400}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <h3 className="text-xl font-heading text-foreground mb-4">
+                    {product.name}
+                  </h3>
+                  <p className="text-foreground/80 font-paragraph mb-6 leading-relaxed">
+                    {product.description}
+                  </p>
+                  {product.ctaLabel && product.ctaLink && (
+                    <Button 
+                      asChild
+                      className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-colors duration-200"
+                    >
+                      <a 
+                        href={product.ctaLink}
+                        className="inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-[#1E1E1E]"
+                      >
+                        {product.ctaLabel}
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </a>
                     </Button>
@@ -592,6 +687,7 @@ export default function HomePage() {
                 {[
                   { label: 'About', href: '#about' },
                   { label: 'Services', href: '#services' },
+                  { label: 'Products', href: '#products' },
                   { label: 'Approach', href: '#approach' },
                   { label: 'Contact', href: '#contact' }
                 ].map(({ label, href }) => (
