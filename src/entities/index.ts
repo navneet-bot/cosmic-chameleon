@@ -36,7 +36,7 @@ export interface Services {
   serviceName?: string;
   /** @wixFieldType text */
   serviceDescription?: string;
-  /** @wixFieldType image */
+  /** @wixFieldType image - Contains image URL, render with <Image> component, NOT as text */
   serviceImage?: string;
   /** @wixFieldType text */
   ctaLabel?: string;

@@ -133,7 +133,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* SEO Head component */}
-      <Head />
+      <Head title="Cosmic Chameleon - Adaptive Digital Solutions" description="Transform your business with Cosmic Chameleon's adaptive digital solutions." />
       
       {/* Navigation - Non-sticky as requested */}
       <nav className="w-full max-w-[1200px] mx-auto px-4 py-6">
