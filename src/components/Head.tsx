@@ -8,7 +8,7 @@ interface HeadProps {
   canonicalUrl?: string;
 }
 
-export default function Head({
+function Head({
   title = "Cosmic Chameleon - Adaptive Digital Solutions",
   description = "Transform your business with Cosmic Chameleon's adaptive digital solutions. We specialize in brand creation, performance management, business analysis, website design, and comprehensive digital campaigns.",
   keywords = "digital marketing, brand creation, website design, business analysis, performance management, online campaigns, digital transformation, adaptive solutions",
@@ -163,3 +163,5 @@ export default function Head({
 
   return null; // This component doesn't render anything visible
 }
+
+export default Head;
