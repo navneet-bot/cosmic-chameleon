@@ -8,13 +8,13 @@ interface HeadProps {
   canonicalUrl?: string;
 }
 
-const Head = ({
+export const useHead = ({
   title = "Cosmic Chameleon - Adaptive Digital Solutions",
   description = "Transform your business with Cosmic Chameleon's adaptive digital solutions. We specialize in brand creation, performance management, business analysis, website design, and comprehensive digital campaigns.",
   keywords = "digital marketing, brand creation, website design, business analysis, performance management, online campaigns, digital transformation, adaptive solutions",
   ogImage = "https://static.wixstatic.com/media/46b2f1_9437f14ef1b04c309f2e2788de7db047~mv2.png?originWidth=1152&originHeight=576",
   canonicalUrl = "https://cosmichameleon.com"
-}: HeadProps) => {
+}: HeadProps = {}) => {
   
   // JSON-LD structured data for SEO
   const jsonLd = {
@@ -160,8 +160,6 @@ const Head = ({
     addPreconnect('https://static.wixstatic.com');
 
   }, [title, description, keywords, ogImage, canonicalUrl]);
-
-  return null; // This component doesn't render anything visible
 }
 
-export default Head;
+export default useHead;
