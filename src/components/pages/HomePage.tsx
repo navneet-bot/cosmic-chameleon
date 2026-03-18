@@ -75,7 +75,7 @@ const PRODUCTS = [
     _id: 'product-1',
     name: 'CRM Dashboard',
     description: 'Comprehensive customer relationship management platform with real-time analytics and automated workflows.',
-    image: 'https://static.wixstatic.com/media/12d367_4f26ccd17f8f4e3a8958306ea08c2332~mv2.png',
+    image: 'https://static.wixstatic.com/media/12d367_4f26ccd17f8f4e3a8958306ea08c2332~mv2.png?originWidth=300&originHeight=300',
     ctaLabel: 'Get Started',
     ctaLink: '#'
   },
@@ -83,7 +83,7 @@ const PRODUCTS = [
     _id: 'product-2',
     name: 'AI Calling Agent',
     description: 'Intelligent voice assistant powered by advanced AI for seamless customer interactions and support.',
-    image: 'https://static.wixstatic.com/media/12d367_4f26ccd17f8f4e3a8958306ea08c2332~mv2.png',
+    image: 'https://static.wixstatic.com/media/12d367_4f26ccd17f8f4e3a8958306ea08c2332~mv2.png?originWidth=300&originHeight=300',
     ctaLabel: 'Get Started',
     ctaLink: '#'
   },
@@ -91,7 +91,7 @@ const PRODUCTS = [
     _id: 'product-3',
     name: 'Billing & Invoicing Software',
     description: 'Streamlined billing solution with automated invoicing, payment tracking, and financial reporting.',
-    image: 'https://static.wixstatic.com/media/46b2f1_aad4ffcf7a0d4eb99c27773abda3c5fb~mv2.png?originWidth=384&originHeight=256',
+    image: 'https://static.wixstatic.com/media/46b2f1_aad4ffcf7a0d4eb99c27773abda3c5fb~mv2.png?originWidth=300&originHeight=300',
     ctaLabel: 'Get Started',
     ctaLink: '#'
   }
@@ -100,6 +100,7 @@ const PRODUCTS = [
 export default function HomePage() {
   const [services, setServices] = useState<Services[]>([]);
   const [approach, setApproach] = useState<OurApproach[]>([]);
+  const [isLoadingData, setIsLoadingData] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -115,18 +116,21 @@ export default function HomePage() {
     description: "Transform your business with Cosmic Chameleon's adaptive digital solutions."
   });
 
-  // Load services and approach data from CMS
+  // Load services and approach data from CMS - optimized with lazy loading
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [servicesData, approachData] = await Promise.all([
-          BaseCrudService.getAll<Services>('services'),
-          BaseCrudService.getAll<OurApproach>('ourapproach')
-        ]);
+        // Load services first (critical for above-the-fold)
+        const servicesData = await BaseCrudService.getAll<Services>('services');
         setServices(servicesData.items);
+        
+        // Load approach data after services (below-the-fold)
+        const approachData = await BaseCrudService.getAll<OurApproach>('ourapproach');
         setApproach(approachData.items);
       } catch (error) {
         console.error('Error loading data:', error);
+      } finally {
+        setIsLoadingData(false);
       }
     };
     loadData();
@@ -271,10 +275,11 @@ export default function HomePage() {
           transition={{ duration: 1 }}
         >
           <Image 
-            src="https://static.wixstatic.com/media/46b2f1_5a14111e1ab744358459508e2d497c71~mv2.png?originWidth=576&originHeight=576"
+            src="https://static.wixstatic.com/media/46b2f1_5a14111e1ab744358459508e2d497c71~mv2.png?originWidth=400&originHeight=400"
             alt="Cosmic Chameleon - Adaptable digital solutions"
-            width={600}
+            width={400}
             className="w-full h-full object-contain"
+            loading="lazy"
           />
         </motion.div>
       </section>
@@ -304,10 +309,11 @@ export default function HomePage() {
           </div>
           <div className="relative">
             <Image 
-              src="https://static.wixstatic.com/media/46b2f1_5d5dd2c0af604e2394f226be64546cd0~mv2.png?originWidth=448&originHeight=448"
+              src="https://static.wixstatic.com/media/46b2f1_5d5dd2c0af604e2394f226be64546cd0~mv2.png?originWidth=400&originHeight=400"
               alt="Cosmic Chameleon brand story - Digital transformation and adaptation"
-              width={500}
+              width={400}
               className="w-full rounded-lg shadow-lg"
+              loading="lazy"
             />
           </div>
         </div>
