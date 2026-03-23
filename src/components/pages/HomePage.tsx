@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { Image } from '@/components/ui/image';
 import { BaseCrudService } from '@/integrations';
 import { Services, OurApproach } from '@/entities';
-import { useHead } from '@/components/Head';
 import { 
   Mail, 
   Phone, 
@@ -109,12 +108,6 @@ export default function HomePage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // Initialize SEO head
-  useHead({
-    title: "Cosmic Chameleon - Adaptive Digital Solutions",
-    description: "Transform your business with Cosmic Chameleon's adaptive digital solutions."
-  });
 
   // Load services and approach data from CMS - optimized with lazy loading
   useEffect(() => {
